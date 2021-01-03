@@ -7,13 +7,14 @@ import java.io.IOException;
 
 public class HBaseTable {
 
-    public void CreateTable() throws IOException {
+
+    public void createTable() throws IOException {
         Configuration config = HBaseConfiguration.create();
         Connection connection = ConnectionFactory.createConnection(config);
        try {
            Table table = connection.getTable(TableName.valueOf("myLittleHBaseTable"));
            Put p = new Put(Bytes.toBytes("myLittleRow"));
-        //   p.add(Bytes.toBytes("myLittleFamily"), Bytes.toBytes("someQualifier"),Bytes.toBytes("Some Value"));
+           p.addColumn(Bytes.toBytes("myLittleFamily"), Bytes.toBytes("someQualifier"),Bytes.toBytes("Some Value"));
            table.put(p);
        }catch (Exception e) {
            e.printStackTrace();
